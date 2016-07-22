@@ -20,8 +20,9 @@ class LearningAgent(Agent):
         self.done = False
         self.steps = 0 # number of steps in each trial
         self.alpha = 0.9 # learning rate
-        self.gamma = 0.4 # discount factor
-        self.epsilon = 0.1 # probability of random action
+        self.gamma = 0.2 # discount factor
+        self.epsilon = 0.5 # probability of random action
+        self.count = 1
 
     def reset(self, destination=None):
         self.planner.route_to(destination)
@@ -30,6 +31,8 @@ class LearningAgent(Agent):
         self.negativeRewards = 0
         self.done = False
         self.steps = 0
+        self.count += 1
+        self.epsilon = 0.5/self.count
         # TODO: Prepare for a new trip; reset any variables here, if required
 
 
@@ -96,7 +99,7 @@ def run():
     # NOTE: You can set enforce_deadline=False while debugging to allow longer trials
 
     # Now simulate it
-    sim = Simulator(e, update_delay=0, display=True)  # create simulator (uses pygame when display=True, if available)
+    sim = Simulator(e, update_delay=0, display=False)  # create simulator (uses pygame when display=True, if available)
     # NOTE: To speed up simulation, reduce update_delay and/or set display=False
 
     sim.run(n_trials=100)  # run for a specified number of trials
