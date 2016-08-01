@@ -1,0 +1,10 @@
+Time complexity analysis
+Q1: it is of O(n) where n is the length of string s, or more precisely, it is n-m+1 iterations, where m is the length of t string. Because we only need to check the substring of m length of s.
+
+Q2:  it is of O(n^2) where n is the length of string a. Because there are nested two iterations, with one fixing the lengths, and the other one iterate through all possible substrings. 
+
+Q3: it is of O(ElogE), where E is the number of edges in G. It is happened in our helper method , sortedEdges, where all edges are sorted based on their weights. Becaus Python sorted method has A O(nlogn), so this is the dominant part of this problem.
+
+Q4: TBD
+
+Q5: it is of O(n), where n is the length of single linked list. The more precise number is 2n, because we need to go through the list twice: obtain the length in the first time, find the destination in the second time. 
