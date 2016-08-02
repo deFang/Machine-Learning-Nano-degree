@@ -99,10 +99,40 @@ c = {'A': [('B',10)],
 print Q3(c)
 print "expected output is: {'A': [('B', 10)], 'B': [('A', 10)], 'C': [('D', 10)], 'D': [('C', 10)]}"
 
-## Q4 cannot understand the question.
-## What does this sentence mean:" where T is the tree represented as a matrix, 
-## where the index of the list is equal to the integer stored in that node 
-## and a 1 represents a child node"?
+def Q4(T, r, n1, n2):
+    nodeNum = len(T)
+    child1 = n1
+    child2 = n2
+    root = n1
+    subroot = [n1]
+    while root != r:
+        for i in range(nodeNum):
+            if T[i][child1] == 1:
+                root = i
+                subroot.append(root)
+                child1 = root
+                break
+    
+    root = n2
+    while root != r:
+        for i in range(nodeNum):
+            if T[i][child2] == 1:
+                if root in subroot:
+                    return root
+                root = i
+                child2 = root
+
+                break
+    return r
+
+T1= [[0, 1, 0, 0, 0], [0, 0, 0, 0, 0],  [0, 0, 0, 0, 0],  [1, 0, 0, 0, 1],  [0, 0, 0, 0, 0]]
+T2 = [[0, 0, 1, 0, 1], [0, 0, 0, 0, 0],  [0, 0, 0, 0, 0],  [0, 0, 0, 0, 0],  [0, 1, 0, 1, 0]]
+print Q4(T1, 3, 1, 4)
+print 'the expected output is 3'
+print Q4(T2, 0, 1, 3)
+print 'the expected output is 4'
+print Q4(T2, 0, 1, 4)
+print 'the expected output is 4'
 
 class Node(object):
   def __init__(self, data):
@@ -110,6 +140,10 @@ class Node(object):
     self.next = None
     
 def Q5(ll, m):
+    if m <= 0:
+        print 'input number should be larger than zero!'
+        return None
+        
     length = 0
     pointer = ll
     item = ll
@@ -118,6 +152,10 @@ def Q5(ll, m):
         pointer = pointer.next
     loc = length-m
     
+    if m > length:
+        print 'input number should be smaller than length of linked list!'
+        return None
+    
     for i in range(loc):
         item = item.next
     return item.data
@@ -125,7 +163,15 @@ def Q5(ll, m):
 a = Node('first')
 b = Node('second')
 c = Node('third')
+d = Node('fourth')
+e = Node('fifth')
 a.next = b
 b.next = c
+c.next = d
+d.next = e
 print Q5(a,1)
-print "expected output is 'third' "
+print "expected output is 'fifth'"
+print Q5(a,-1)
+print 'expected output is None'
+print Q5(a,10)
+print 'expected output is None'
